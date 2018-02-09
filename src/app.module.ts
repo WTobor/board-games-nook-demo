@@ -22,6 +22,13 @@ import { UserService } from './users/user.service';
 import { AboutRoutingModule } from './about/about-routing.module';
 import { WelcomeRoutingModule } from './welcome/welcome-routing.module';
 
+// import {Gamers} from './generators/gamers';
+// import {BoardGames} from './generators/boardGames';
+// import {GameTables} from './generators/gameTables';
+// import {GameResults} from './generators/gameResults';
+// import {GamerBoardGames} from './generators/gamerBoardGames';
+// import {TableBoardGames} from './generators/tableBoardGames';
+
 @NgModule({
     imports: [
         BrowserModule,

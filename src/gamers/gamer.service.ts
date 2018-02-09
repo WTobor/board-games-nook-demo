@@ -1,37 +1,26 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs/Observable';
 
 import { Gamer } from './gamer';
-import { httpOptions } from './../common';
+import {Gamers} from '../generators/gamers';
 
 
 @Injectable()
 export class GamerService {
-    private _getCurrentGamerNicknameUrl = 'Gamer/GetCurrentGamerNickname';
-    private _getByEmailUrl = 'Gamer/GetByEmail';
-    private _getByNicknameUrl = 'Gamer/GetByNickname';
-    private _getGamerListUrl = 'Gamer/GetAll';
-    private _addGamerUrl = 'Gamer/Add';
-    private _editGamerUrl = 'Gamer/Edit';
-    private _deactivateGamerUrl = 'Gamer/Deactivate';
 
-    constructor(private http: HttpClient) {}
+    constructor() {}
 
     getGamers(): Observable<Gamer[]> {
-        const url = `${this._getGamerListUrl}`;
-        return this.http.get<Gamer[]>(url);
+        return new Observable<Gamer[]>(Gamers);
     }
 
     getCurrentGamerNickname(): Observable<string> {
-        const url = `${this._getCurrentGamerNicknameUrl}`;
-        return this.http.get<string>(url);
+      return new Observable<string>(Gamers[0].nickname);
     }
 
     getByEmail(email: string): Observable<Gamer> {
         if (email !== '') {
-            return this.http
-                .post<Gamer>(`${this._getByEmailUrl}`, JSON.stringify({ email: email }), httpOptions);
+          return new Observable<Gamer>(Gamers.search(x => x.email === email));
         } else {
             return new Observable<Gamer>();
         }
@@ -39,27 +28,26 @@ export class GamerService {
 
     getByNickname(nickname: string): Observable<Gamer> {
         if (nickname !== 'new') {
-            return this.http
-                .post<Gamer>(`${this._getByNicknameUrl}`, JSON.stringify({ nickname: nickname }), httpOptions);
+          return new Observable<Gamer>(Gamers.search(x => x.nickname === nickname));
         } else {
             return new Observable<Gamer>();
         }
     }
 
     deactivate(id: string): Observable<string> {
-        const url = `${this._deactivateGamerUrl}/${id}`;
-        return this.http.post<string>(url, httpOptions);
+      return new Observable<string>();
     }
 
     create(gamer: Gamer): Observable<string> {
-        const url = `${this._addGamerUrl}`;
-        return this.http
-            .post<string>(url, JSON.stringify(gamer), httpOptions);
+      Gamers.push(gamer);
+      return new Observable<string>();
     }
 
     update(gamer: Gamer): Observable<string> {
-        const url = `${this._editGamerUrl}`;
-        return this.http
-            .post<string>(url, JSON.stringify(gamer), httpOptions);
+      let dbGamer = Gamers.search(x => x.Id === gamer.Id);
+      if (dbGamer !== undefined) {
+        dbGamer = gamer;
+      }
+      return new Observable<string>();
     }
 }

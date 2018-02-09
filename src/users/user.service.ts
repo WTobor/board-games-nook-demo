@@ -1,23 +1,22 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
 import { User } from './user';
 import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/of';
 
 @Injectable()
 export class UserService {
-    private getUserUrl = 'User/Get';
-    private logOutUserUrl = 'User/LogOut';
-
-    constructor(private http: HttpClient, private router: Router) {}
+    constructor() {}
 
     getUser(): Observable<User> {
-        const url = `${this.getUserUrl}`;
-        return this.http.get<User>(url);
+        return  Observable.of<User>(
+          {
+          Id: 123,
+          Name: 'https://www.iconsdb.com/red-icons/x-mark-3-icon.html',
+          ImageUrl: 'string',
+          Email: 'test@test.pl'
+        });
     }
 
     logOutUser(): void {
-        const url = `${this.logOutUserUrl}`;
-        this.http.get(url);
     }
 }

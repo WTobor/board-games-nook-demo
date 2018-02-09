@@ -1,73 +1,55 @@
-﻿import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+﻿import { Injectable } from '@angular/core';
 
-import { GameTable } from "./gameTable";
-import { TableBoardGame } from "./tableBoardGame";
-import { Observable } from "rxjs/Observable";
-import {httpOptions} from "../common";
+import { GameTable } from './gameTable';
+import { TableBoardGame } from './tableBoardGame';
+import { Observable } from 'rxjs/Observable';
+import { GameTables } from '../generators/gameTables';
+import { GameResults } from '../generators/gameResults';
+import { TableBoardGames } from '../generators/tableBoardGames';
 
 @Injectable()
 export class GameTableService {
-    private headers = new Headers({ "Content-Type": "application/json" });
-    private _getGameTableUrl = "GameTable/Get";
-    private _getGameTableListUrl = "GameTable/GetAll";
-    private _getGameTableListByGamerNicknameUrl = "GameTable/GetAllByGamerNickname";
-    private _getGameTableListWithoutResultsUrl = "GameTable/GetAllWithoutResultsByGamerNickname";
-    private _getAvailableTableBoardGameListUrl = "GameTable/GetAvailableTableBoardGameList";
-    private _addGameTableUrl = "GameTable/Add";
-    private _editGameTableUrl = "GameTable/Edit";
-    private _deactivateGameTableUrl = "GameTable/Deactivate";
-
-    constructor(private http: HttpClient) { }
+    constructor() { }
 
     getAvailableTableBoardGameList(tableId): Observable<TableBoardGame[]> {
-        const url = `${this._getAvailableTableBoardGameListUrl}/${tableId}`;
-        return this.http.get<TableBoardGame[]> (url);
+        const result = TableBoardGames.filter(x => x.GameTableId === tableId);
+        return new Observable<TableBoardGame[]>(result);
     }
 
     getGameTablesByGamerNickname(gamerNickname: string): Observable<GameTable[]> {
-        var url = `${this._getGameTableListUrl}`;
-        if (gamerNickname != null && gamerNickname !== "") {
-            url = `${this._getGameTableListByGamerNicknameUrl}/${gamerNickname}`;
-        };
-
-        return this.http.get<GameTable[]>(url);
+      return new Observable<GameTable[]>(
+        GameTables.filter(x => x.gamerNickname === gamerNickname)
+      );
     }
 
     getGameTablesWithoutResultsByGamerNickname(gamerNickname: string): Observable<GameTable[]> {
-        var url = `${this._getGameTableListWithoutResultsUrl}`;
-        if (gamerNickname != null && gamerNickname !== "") {
-            url = `${this._getGameTableListByGamerNicknameUrl}/${gamerNickname}`;
-        };
-        
-        return this.http.get<GameTable[]> (url);
+      const tablesWitResults = GameResults.filter(x => x.GameTableId);
+      const result = GameTables.filter(x => !tablesWitResults.includes(x.GameTableId));
+      return new Observable<GameTable[]>(result);
     }
 
     getGameTable(id: number): Observable<GameTable> {
         if (id > 0) {
-            const url = `${this._getGameTableUrl}/${id}`;
-            return this.http.get<GameTable> (url);
-        }
-        else {
-            var response = new GameTable;;
+          return new Observable<GameTable>(GameTables.search(x => x.Id === id));
+        } else {
+          return new Observable<GameTable>();
         }
     }
 
     deactivate(id: number): Observable<string> {
-        // id - boardGameId
-        const url = `${this._deactivateGameTableUrl}/${id}`;
-        return this.http.post<string> (url, httpOptions);
+      return new Observable<string>();
     }
 
     create(gameTable: GameTable): Observable<string> {
-        const url = `${this._addGameTableUrl}`;
-        return this.http
-            .post<string> (url, JSON.stringify(gameTable), httpOptions);
+      GameTables.push(gameTable);
+      return new Observable<string>();
     }
 
     update(gameTable: GameTable): Observable<string> {
-        const url = `${this._editGameTableUrl}`;
-        return this.http
-            .post<string> (url, JSON.stringify(gameTable), httpOptions);
+      let dbGameTable = GameTables.search(x => x.Id === gameTable.Id);
+      if (dbGameTable !== undefined) {
+        dbGameTable = gameTable;
+      }
+      return new Observable<string>();
     }
 }

@@ -1,78 +1,64 @@
 ﻿import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 
 import { GameResult } from './gameResult';
 
-import { httpOptions } from './../common';
 import { Observable } from 'rxjs/Observable';
+import { GameResults } from '../generators/gameResults';
 
 @Injectable()
 export class GameResultService {
-    private _getGameResultUrl = 'GameResult/Get';
-    private _getGameResultListByTableUrl = 'GameResult/GetAllByTableId';
-    private _getGameResultListByGamerNicknameUrl = 'GameResult/GetAllByGamerNickname';
-    private _getGameResultListUrl = 'GameResult/GetAll';
-    private _addGameResultUrl = 'GameResult/Add';
-    private _addGameResultListUrl = 'GameResult/AddMany';
-    private _editGameResultUrl = 'GameResult/Edit';
-    private _deactivateGameResultUrl = 'GameResult/Deactivate';
-
-    constructor(private http: HttpClient) { }
+    constructor() { }
 
     getList(nickname: string): Observable<GameResult[]> {
         if (nickname !== undefined && nickname !== '') {
-            return this.getByNickname(nickname);
-        }
-        else {
-            return this.getGameResults();
+          const result = GameResults.filter(x => x.GamerNickname === nickname);
+          return new Observable<GameResult[]>(result);
+        } else {
+          return new Observable<GameResult[]>();
         }
     }
 
     getGameResults(): Observable<GameResult[]> {
-        const url = `${this._getGameResultListUrl}`;
-        return this.http.get<GameResult[]>(url);
+      return new Observable<GameResult[]>(GameResults);
     }
 
     getGameResult(id: number): Observable<GameResult> {
         if (id !== 0) {
-            const url = `${this._getGameResultUrl}/${id}`;
-            return this.http.get<GameResult>(url);
-        }
-        else {
+          return new Observable<GameResult>(GameResults.search(x => x.Id === id));
+        } else {
             return new Observable<GameResult>();
         }
     }
 
     getByTable(tableId: number): Observable<GameResult[]> {
-        return this.http
-            .post<GameResult[]>(`${this._getGameResultListByTableUrl}`, JSON.stringify({ tableId: tableId }), httpOptions);
+      return new Observable<GameResult[]>(GameResults.filter(x => x.TableId === tableId));
     }
 
     getByNickname(nickname: string): Observable<GameResult[]> {
-        return this.http
-            .post<GameResult[]>(`${this._getGameResultListByGamerNicknameUrl}`, JSON.stringify({ nickname: nickname }), httpOptions);
+      return new Observable<GameResult[]>(GameResults.filter(x => x.GamerNickname === nickname));
     }
 
     create(gameResult: GameResult): Observable<string> {
-        const url = `${this._addGameResultUrl}`;
-        return this.http
-            .post<string>(url, JSON.stringify(gameResult), httpOptions);
+      GameResults.push(gameResult);
+      return new Observable<string>();
     }
 
     createMany(gameResults: GameResult[]): Observable<string> {
-        const url = `${this._addGameResultListUrl}`;
-        return this.http
-            .post<string>(url, JSON.stringify(gameResults), httpOptions);
+      gameResults.forEach(element => {
+        GameResults.push(element);
+      });
+      return new Observable<string>();
     }
 
     update(gameResult: GameResult): Observable<string> {
-        const url = `${this._editGameResultUrl}`;
-        return this.http
-            .post<string>(url, JSON.stringify(gameResult), httpOptions);
+      let dbGameResult = GameResults.search(x => x.Id === gameResult.Id);
+      if (dbGameResult !== undefined) {
+        dbGameResult = gameResult;
+      }
+      return new Observable<string>();
     }
 
     deactivate(id: string): Observable<string> {
-        const url = `${this._deactivateGameResultUrl}/${id}`;
-        return this.http.post<string>(url, httpOptions);
+      return new Observable<string>();
     }
 }

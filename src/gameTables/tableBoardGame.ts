@@ -4,6 +4,6 @@
     BoardGameName: string;
     ImageUrl: string;
     TableId: number;
-    GamerId: number;
+    GamerId: string;
     GamerNickname: string;
 }
