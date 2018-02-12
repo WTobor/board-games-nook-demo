@@ -14,10 +14,11 @@ import { BoardGame } from './boardGame';
 })
 export class BoardGameListComponent implements OnInit {
     private allBoardGames: BoardGame[];
-    private searchedBoardGames: BoardGame[];
     private isAdmin = false;
-    private query = '';
-    private search: Subject<string> = new Subject<string>();
+
+    searchedBoardGames: BoardGame[];
+    query = '';
+    search: Subject<string> = new Subject<string>();
 
     constructor(
         private boardGameService: BoardGameService,
@@ -36,7 +37,7 @@ export class BoardGameListComponent implements OnInit {
         }).subscribe(this.searchQuery.bind(this));
     }
 
-    delete(boardGame: BoardGame): void {
+    deactivate(boardGame: BoardGame): void {
         this.boardGameService
             .deactivate(boardGame.Id)
             .subscribe(() => {

@@ -1,13 +1,13 @@
-﻿import { NgModule } from "@angular/core";
-import { RouterModule, Routes } from "@angular/router";
+﻿import { NgModule } from '@angular/core';
+import { RouterModule, Routes } from '@angular/router';
 
-import { ParticipationListComponent } from "./participation-list.component";
-import { ParticipationDetailComponent } from "./participation-detail.component";
+import { ParticipationListComponent } from './participation-list.component';
+import { ParticipationDetailComponent } from './participation-detail.component';
 
 const participationsRoutes: Routes = [
-    { path: "participations", component: ParticipationListComponent },
-    { path: "participations/:gamerNickname", component: ParticipationListComponent },
-    { path: "participation/:id", component: ParticipationDetailComponent }
+    { path: 'participations', component: ParticipationListComponent },
+    { path: 'participations/:gamerNickname', component: ParticipationListComponent },
+    { path: 'participation/:id', component: ParticipationDetailComponent }
     // TODO: add with gamerID
 ];
 

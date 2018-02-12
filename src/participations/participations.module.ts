@@ -1,13 +1,13 @@
-﻿import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { FormsModule } from "@angular/forms";
+﻿import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
-import { ParticipationListComponent } from "./participation-list.component";
-import { ParticipationDetailComponent } from "./participation-detail.component";
+import { ParticipationListComponent } from './participation-list.component';
+import { ParticipationDetailComponent } from './participation-detail.component';
 
-import { ParticipationService } from "./participation.service";
+import { ParticipationService } from './participation.service';
 
-import { ParticipationRoutingModule } from "./participations-routing.module";
+import { ParticipationRoutingModule } from './participations-routing.module';
 
 @NgModule({
     imports: [

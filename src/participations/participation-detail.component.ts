@@ -8,7 +8,7 @@ import { Common } from './../common';
 
 @Component({
     selector: 'participation-detail',
-    templateUrl: './src/participations/participation-detail.component.html'
+    templateUrl: './participation-detail.component.html'
 })
 export class ParticipationDetailComponent implements OnInit {
     participation: Participation;
@@ -25,16 +25,16 @@ export class ParticipationDetailComponent implements OnInit {
         this.participationService.getParticipation(Number(this.route.snapshot.paramMap.get('id')))
             .subscribe((participation: Participation) => {
                 this.participation = participation;
-                if (this.participation.Id == undefined) {
+                if (this.participation.Id === undefined) {
                     this.isCurrentGamer = true;
                 }
             });
     }
 
-    //TODO: deactivate
+    // TODO: deactivate
 
     save(): void {
-        var loc = this.location;
+        const loc = this.location;
         if (this.participation.Id === undefined) {
             this.participationService.create(this.participation)
                 .subscribe(errorMessage => { new Common(loc).showErrorOrGoBack(errorMessage); });

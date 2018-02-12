@@ -20,11 +20,12 @@ export class GameResultAddComponent implements OnInit {
     gameResult: GameResult = new GameResult();
     availableBoardGames: BoardGame[];
     availableGamers: Gamer[];
-
     currentGamerNickname: string;
-
     selectedGamer: Gamer;
     selectedBoardGame: BoardGame;
+    points: number;
+    place: number;
+    playersNumber: number;
 
     constructor(
         private gameResultService: GameResultService,

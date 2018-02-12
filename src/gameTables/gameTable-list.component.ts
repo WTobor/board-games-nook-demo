@@ -36,8 +36,7 @@ export class GameTableListComponent implements OnInit {
             };
             if (this.selectedGamerNickname === undefined && this.loadedGameTables !== undefined) {
                 this.gameTables = this.loadedGameTables.filter(x => x.CreatedGamerNickname !== nick);
-            }
-            else {
+            } else {
                 this.gameTables = this.loadedGameTables;
             }
         });
@@ -47,7 +46,7 @@ export class GameTableListComponent implements OnInit {
         this.selectedGameTable = gameTable;
     }
 
-    delete(gameTable: GameTable): void {
+    deactiate(gameTable: GameTable): void {
         this.gameTableService
             .deactivate(gameTable.Id)
             .subscribe(() => {

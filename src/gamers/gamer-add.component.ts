@@ -12,6 +12,12 @@ import { Common } from './../common';
 })
 export class GamerAddComponent implements OnInit {
     gamer: Gamer;
+    nickname: string;
+    name: string;
+    surname: string;
+    age: number;
+    city: string;
+    street: string;
 
     constructor(
         private gamerService: GamerService,
