@@ -1,6 +1,7 @@
 import { GameResult } from '../gameResults/gameResult';
 
-export const GameResults: any = new Array<GameResult>(
+export class GameResultGenerator {
+  GameResults: Array<GameResult> = new Array<GameResult>(
   {
     Id: 1,
     CreatedGamerId: 'a1s2d3f4',
@@ -43,4 +44,4 @@ export const GameResults: any = new Array<GameResult>(
     GameTableId: 301,
     GameTableName: 'Wieczorne spotkanie na Dixit i Terra Mysticę'
   }
-);
+)}

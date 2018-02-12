@@ -22,12 +22,12 @@ import { UserService } from './users/user.service';
 import { AboutRoutingModule } from './about/about-routing.module';
 import { WelcomeRoutingModule } from './welcome/welcome-routing.module';
 
-// import {Gamers} from './generators/gamers';
-// import {BoardGames} from './generators/boardGames';
-// import {GameTables} from './generators/gameTables';
-// import {GameResults} from './generators/gameResults';
-// import {GamerBoardGames} from './generators/gamerBoardGames';
-// import {TableBoardGames} from './generators/tableBoardGames';
+import { GamerGenerator } from './generators/gamerGenerator';
+import { BoardGameGenerator } from './generators/boardGameGenerator';
+import { GamerBoardGameGenerator } from './generators/gamerBoardGameGenerator';
+import { TableBoardGameGenerator } from './generators/tableBoardGameGenerator';
+import { GameTableGenerator } from './generators/gameTableGenerator';
+import { GameResultGenerator } from './generators/gameResultGenerator';
 
 @NgModule({
     imports: [
@@ -55,7 +55,13 @@ import { WelcomeRoutingModule } from './welcome/welcome-routing.module';
         {
             provide: LocationStrategy,
             useClass: HashLocationStrategy
-        }
+        },
+        GamerGenerator,
+        BoardGameGenerator,
+        GamerBoardGameGenerator,
+        TableBoardGameGenerator,
+        GameTableGenerator,
+        GameResultGenerator
     ],
     bootstrap: [AppComponent]
 })

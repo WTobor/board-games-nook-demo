@@ -2,27 +2,27 @@
 import { Observable } from 'rxjs/Observable';
 
 import { GamerBoardGame } from './gamerBoardGame';
-import { GamerBoardGames } from '../generators/gamerBoardGames';
+import { GamerBoardGameGenerator } from '../generators/gamerBoardGameGenerator';
 
 
 @Injectable()
 export class GamerBoardGameService {
-    constructor() { }
+    constructor(private gamerBoardGameGenerator: GamerBoardGameGenerator) { }
 
     getGamerBoardGames(gamerNickname: string): Observable<GamerBoardGame[]> {
-      return new Observable<GamerBoardGame[]>(GamerBoardGames.filter(x => x.GamerNickname === gamerNickname));
+      return Observable.of(this.gamerBoardGameGenerator.GamerBoardGames.filter(x => x.GamerNickname === gamerNickname));
     }
 
     getGamerBoardGame(id: number): Observable<GamerBoardGame> {
         if (id > 0) {
-          return new Observable<GamerBoardGame>(GamerBoardGames.search(x => x.Id === id));
+          return Observable.of(this.gamerBoardGameGenerator.GamerBoardGames.find(x => x.Id === id));
         } else {
             return new Observable<GamerBoardGame>();
         }
     }
 
     getGamerAvailableBoardGames(gamerNickname: string): Observable<GamerBoardGame[]> {
-      return new Observable<GamerBoardGame[]>(GamerBoardGames.filter(x => x.GamerNickname === gamerNickname));
+      return Observable.of(this.gamerBoardGameGenerator.GamerBoardGames.filter(x => x.GamerNickname === gamerNickname));
     }
 
     deactivate(id: number): Observable<string> {
@@ -30,12 +30,12 @@ export class GamerBoardGameService {
     }
 
     create(boardGameId: number): Observable<string> {
-      //TODO
+      // TODO
       return new Observable<string>();
     }
 
     update(gamerBoardGame: GamerBoardGame): Observable<string> {
-      let dbGamerBoardGame = GamerBoardGames.search(x => x.Id === gamerBoardGame.Id);
+      let dbGamerBoardGame = this.gamerBoardGameGenerator.GamerBoardGames.find(x => x.Id === gamerBoardGame.Id);
       if (dbGamerBoardGame !== undefined) {
         dbGamerBoardGame = gamerBoardGame;
       }

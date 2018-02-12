@@ -37,7 +37,7 @@ export class GamerBoardGameListComponent implements OnInit {
         this.selectedGamerBoardGame = gamerBoardGame;
     }
 
-    delete(gamerBoardGame: GamerBoardGame): void {
+    deactivate(gamerBoardGame: GamerBoardGame): void {
         this.gamerBoardGameService
             .deactivate(gamerBoardGame.Id)
             .subscribe(() => {

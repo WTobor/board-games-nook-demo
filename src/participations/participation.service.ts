@@ -1,7 +1,7 @@
-﻿import { Injectable } from "@angular/core";
+﻿import { Injectable } from '@angular/core';
 
-import { Participation } from "./participation";
-import { Observable } from "rxjs/Observable";
+import { Participation } from './participation';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class ParticipationService {

@@ -11,8 +11,8 @@ export class UserService {
         return  Observable.of<User>(
           {
           Id: 123,
-          Name: 'https://www.iconsdb.com/red-icons/x-mark-3-icon.html',
-          ImageUrl: 'string',
+          Name: 'programmer-girl',
+          ImageUrl: '',
           Email: 'test@test.pl'
         });
     }

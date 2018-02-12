@@ -1,6 +1,7 @@
 import { Gamer } from '../gamers/gamer';
 
-export const Gamers: any = new Array<Gamer>(
+export class GamerGenerator {
+  Gamers: Array<Gamer> = new Array<Gamer>(
   {
     Id: 'a1s2d3f4',
     Age: 25,
@@ -9,7 +10,7 @@ export const Gamers: any = new Array<Gamer>(
     Surname: 'Tobor',
     City: 'Wrocław',
     Street: 'Testowa',
-    Email: 'weronika@op.pl'
+    Email: 'test@test.pl'
   },
   {
     Id: 'q1w2e3r4',
@@ -40,4 +41,4 @@ export const Gamers: any = new Array<Gamer>(
     Street: '',
     Email: 'nowak_maciej@onet.pl'
   }
-)
+)}

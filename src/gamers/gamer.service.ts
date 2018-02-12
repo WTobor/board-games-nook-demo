@@ -2,25 +2,25 @@
 import { Observable } from 'rxjs/Observable';
 
 import { Gamer } from './gamer';
-import {Gamers} from '../generators/gamers';
+import { GamerGenerator } from '../generators/gamerGenerator';
 
 
 @Injectable()
 export class GamerService {
 
-    constructor() {}
+    constructor(private gamerGenerator: GamerGenerator) {}
 
     getGamers(): Observable<Gamer[]> {
-        return new Observable<Gamer[]>(Gamers);
+        return Observable.of(this.gamerGenerator.Gamers);
     }
 
     getCurrentGamerNickname(): Observable<string> {
-      return new Observable<string>(Gamers[0].nickname);
+      return Observable.of(this.gamerGenerator.Gamers[0].Nickname);
     }
 
     getByEmail(email: string): Observable<Gamer> {
         if (email !== '') {
-          return new Observable<Gamer>(Gamers.search(x => x.email === email));
+          return Observable.of(this.gamerGenerator.Gamers.find(x => x.Email === email));
         } else {
             return new Observable<Gamer>();
         }
@@ -28,7 +28,7 @@ export class GamerService {
 
     getByNickname(nickname: string): Observable<Gamer> {
         if (nickname !== 'new') {
-          return new Observable<Gamer>(Gamers.search(x => x.nickname === nickname));
+          return Observable.of(this.gamerGenerator.Gamers.find(x => x.Nickname === nickname));
         } else {
             return new Observable<Gamer>();
         }
@@ -39,12 +39,12 @@ export class GamerService {
     }
 
     create(gamer: Gamer): Observable<string> {
-      Gamers.push(gamer);
+      this.gamerGenerator.Gamers.push(gamer);
       return new Observable<string>();
     }
 
     update(gamer: Gamer): Observable<string> {
-      let dbGamer = Gamers.search(x => x.Id === gamer.Id);
+      let dbGamer = this.gamerGenerator.Gamers.find(x => x.Id === gamer.Id);
       if (dbGamer !== undefined) {
         dbGamer = gamer;
       }

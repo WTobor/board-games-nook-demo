@@ -1,6 +1,7 @@
 import { GamerBoardGame } from '../gamerBoardGames/gamerBoardGame';
 
-export const GamerBoardGames: any = new Array<GamerBoardGame>(
+export class GamerBoardGameGenerator {
+  GamerBoardGames: Array<GamerBoardGame> = new Array<GamerBoardGame>(
   {
     Id: 1,
     GamerId: 'a1s2d3f4',
@@ -64,4 +65,4 @@ export const GamerBoardGames: any = new Array<GamerBoardGame>(
     ImageUrl: 'https://cf.geekdo-images.com/images/pic1904079_t.jpg',
     BGGId: 9220
   }
-);
+)}

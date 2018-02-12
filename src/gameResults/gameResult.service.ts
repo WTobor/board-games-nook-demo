@@ -3,55 +3,55 @@
 import { GameResult } from './gameResult';
 
 import { Observable } from 'rxjs/Observable';
-import { GameResults } from '../generators/gameResults';
+import { GameResultGenerator } from '../generators/gameResultGenerator';
 
 @Injectable()
 export class GameResultService {
-    constructor() { }
+    constructor(private gameResultGenerator: GameResultGenerator) { }
 
     getList(nickname: string): Observable<GameResult[]> {
         if (nickname !== undefined && nickname !== '') {
-          const result = GameResults.filter(x => x.GamerNickname === nickname);
-          return new Observable<GameResult[]>(result);
+          const result = this.gameResultGenerator.GameResults.filter(x => x.GamerNickname === nickname);
+          return Observable.of(result);
         } else {
           return new Observable<GameResult[]>();
         }
     }
 
     getGameResults(): Observable<GameResult[]> {
-      return new Observable<GameResult[]>(GameResults);
+      return Observable.of(this.gameResultGenerator.GameResults);
     }
 
     getGameResult(id: number): Observable<GameResult> {
         if (id !== 0) {
-          return new Observable<GameResult>(GameResults.search(x => x.Id === id));
+          return Observable.of(this.gameResultGenerator.GameResults.find(x => x.Id === id));
         } else {
             return new Observable<GameResult>();
         }
     }
 
     getByTable(tableId: number): Observable<GameResult[]> {
-      return new Observable<GameResult[]>(GameResults.filter(x => x.TableId === tableId));
+      return Observable.of(this.gameResultGenerator.GameResults.filter(x => x.GameTableId === tableId));
     }
 
     getByNickname(nickname: string): Observable<GameResult[]> {
-      return new Observable<GameResult[]>(GameResults.filter(x => x.GamerNickname === nickname));
+      return Observable.of(this.gameResultGenerator.GameResults.filter(x => x.GamerNickname === nickname));
     }
 
     create(gameResult: GameResult): Observable<string> {
-      GameResults.push(gameResult);
+      this.gameResultGenerator.GameResults.push(gameResult);
       return new Observable<string>();
     }
 
     createMany(gameResults: GameResult[]): Observable<string> {
       gameResults.forEach(element => {
-        GameResults.push(element);
+        this.gameResultGenerator.GameResults.push(element);
       });
       return new Observable<string>();
     }
 
     update(gameResult: GameResult): Observable<string> {
-      let dbGameResult = GameResults.search(x => x.Id === gameResult.Id);
+      let dbGameResult = this.gameResultGenerator.GameResults.find(x => x.Id === gameResult.Id);
       if (dbGameResult !== undefined) {
         dbGameResult = gameResult;
       }
