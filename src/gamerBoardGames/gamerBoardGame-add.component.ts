@@ -38,7 +38,7 @@ export class GamerBoardGameAddComponent implements OnInit {
               if (this.gamerBoardGames) {
                 this.boardGameService.getBoardGame(this.gamerBoardGames[0].BoardGameId).subscribe((boardGame: BoardGame) => {
                   this.selectedBoardGame = boardGame;
-              }
+              })
             }
           })
     }
