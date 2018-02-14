@@ -14,7 +14,7 @@ export class GameTableService {
       private gameResultGenerator: GameResultGenerator) { }
 
     getAvailableTableBoardGameList(tableId): Observable<TableBoardGame[]> {
-        const result = this.tableBoardGameGenerator.TableBoardGames.filter(x => x.TableId === tableId);
+        const result = this.tableBoardGameGenerator.TableBoardGames.filter(x => x.TableId !== tableId);
         return Observable.of(result);
     }
 
@@ -49,17 +49,17 @@ export class GameTableService {
         if (id > 0) {
           return Observable.of(this.gameTableGenerator.GameTables.find(x => x.Id === id));
         } else {
-          return new Observable<GameTable>();
+          return Observable.of(null);
         }
     }
 
     deactivate(id: number): Observable<string> {
-      return new Observable<string>();
+      return Observable.of('');
     }
 
     create(gameTable: GameTable): Observable<string> {
       this.gameTableGenerator.GameTables.push(gameTable);
-      return new Observable<string>();
+      return Observable.of('');
     }
 
     update(gameTable: GameTable): Observable<string> {
@@ -67,6 +67,6 @@ export class GameTableService {
       if (dbGameTable !== undefined) {
         dbGameTable = gameTable;
       }
-      return new Observable<string>();
+      return Observable.of('');
     }
 }

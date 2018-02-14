@@ -14,7 +14,7 @@ export class GameResultService {
           const result = this.gameResultGenerator.GameResults.filter(x => x.GamerNickname === nickname);
           return Observable.of(result);
         } else {
-          return new Observable<GameResult[]>();
+          return Observable.of(null);
         }
     }
 
@@ -26,7 +26,7 @@ export class GameResultService {
         if (id !== 0) {
           return Observable.of(this.gameResultGenerator.GameResults.find(x => x.Id === id));
         } else {
-            return new Observable<GameResult>();
+            return Observable.of(null);
         }
     }
 
@@ -40,14 +40,14 @@ export class GameResultService {
 
     create(gameResult: GameResult): Observable<string> {
       this.gameResultGenerator.GameResults.push(gameResult);
-      return new Observable<string>();
+      return Observable.of('');
     }
 
     createMany(gameResults: GameResult[]): Observable<string> {
       gameResults.forEach(element => {
         this.gameResultGenerator.GameResults.push(element);
       });
-      return new Observable<string>();
+      return Observable.of('');
     }
 
     update(gameResult: GameResult): Observable<string> {
@@ -55,10 +55,10 @@ export class GameResultService {
       if (dbGameResult !== undefined) {
         dbGameResult = gameResult;
       }
-      return new Observable<string>();
+      return Observable.of('');
     }
 
     deactivate(id: string): Observable<string> {
-      return new Observable<string>();
+      return Observable.of('');
     }
 }

@@ -22,7 +22,7 @@ export class GamerService {
         if (email !== '') {
           return Observable.of(this.gamerGenerator.Gamers.find(x => x.Email === email));
         } else {
-            return new Observable<Gamer>();
+            return Observable.of(null);
         }
     }
 
@@ -30,17 +30,17 @@ export class GamerService {
         if (nickname !== 'new') {
           return Observable.of(this.gamerGenerator.Gamers.find(x => x.Nickname === nickname));
         } else {
-            return new Observable<Gamer>();
+            return Observable.of(null);
         }
     }
 
     deactivate(id: string): Observable<string> {
-      return new Observable<string>();
+      return Observable.of('');
     }
 
     create(gamer: Gamer): Observable<string> {
       this.gamerGenerator.Gamers.push(gamer);
-      return new Observable<string>();
+      return Observable.of('');
     }
 
     update(gamer: Gamer): Observable<string> {
@@ -48,6 +48,6 @@ export class GamerService {
       if (dbGamer !== undefined) {
         dbGamer = gamer;
       }
-      return new Observable<string>();
+      return Observable.of('');
     }
 }

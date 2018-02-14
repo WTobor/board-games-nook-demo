@@ -17,22 +17,22 @@ export class BoardGameService {
         if (id !== 0) {
           return Observable.of(this.boardGameGenerator.BoardGames.find(x => x.Id === id));
         } else {
-            return new Observable<BoardGame>();
+            return Observable.of(null);
         }
     }
 
     deactivate(id: number): Observable<string> {
-      return new Observable<string>();
+      return Observable.of('');
     }
 
     create(name: string): Observable<string> {
       // TODO
-      return new Observable<string>();
+      return Observable.of('');
     }
 
     addSimilar(id: number): Observable<string> {
       // TODO
-      return new Observable<string>();
+      return Observable.of('');
     }
 
     update(boardGame: BoardGame): Observable<string> {
@@ -40,6 +40,6 @@ export class BoardGameService {
       if (dbBoardGame !== undefined) {
         dbBoardGame = boardGame;
       }
-      return new Observable<string>();
+      return Observable.of('');
     }
 }

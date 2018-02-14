@@ -24,15 +24,15 @@ export class ParticipationService {
 
     create(participation: Participation): Observable<string> {
         // TODO
-        return new Observable<string>();
+        return Observable.of('');
     }
 
     update(participation: Participation): Observable<string> {
         // TODO
-        return new Observable<string>();
+        return Observable.of('');
     }
 
     deactivate(id: number): Observable<string> {
-      return new Observable<string>();
+      return Observable.of('');
     }
 }
