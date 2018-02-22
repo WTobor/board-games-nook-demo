@@ -10,11 +10,11 @@ export class GameResultService {
     constructor(private gameResultGenerator: GameResultGenerator) { }
 
     getList(nickname: string): Observable<GameResult[]> {
-        if (nickname !== undefined && nickname !== '') {
+        if (nickname !== null && nickname !== undefined && nickname !== '') {
           const result = this.gameResultGenerator.GameResults.filter(x => x.GamerNickname === nickname);
           return Observable.of(result);
         } else {
-          return Observable.of(null);
+          return Observable.of(this.gameResultGenerator.GameResults);
         }
     }
 
@@ -26,7 +26,7 @@ export class GameResultService {
         if (id !== 0) {
           return Observable.of(this.gameResultGenerator.GameResults.find(x => x.Id === id));
         } else {
-            return Observable.of(null);
+            return Observable.of(new GameResult());
         }
     }
 
@@ -39,6 +39,9 @@ export class GameResultService {
     }
 
     create(gameResult: GameResult): Observable<string> {
+      gameResult.Id = this.gameResultGenerator.GameResults[this.gameResultGenerator.GameResults.length - 1].Id + 1;
+      gameResult.CreatedGamerId = 'a1s2d3f4';
+      gameResult.CreatedGamerNickname = 'programmer-girl';
       this.gameResultGenerator.GameResults.push(gameResult);
       return Observable.of('');
     }

@@ -21,7 +21,7 @@
             </h4>
             <button class="btn btn-primary" (click)="gotoDetail()">Szczegóły</button>
         </div>
-        <div class="form-group text-center">
+        <div *ngIf="!isCurrentGamer" class="form-group text-center">
           <button type="button" class="btn btn-default" (click)="goBack()">Powrót</button>
         </div>
     </form>

@@ -19,9 +19,15 @@ export class GameTableService {
     }
 
     getGameTablesByGamerNickname(gamerNickname: string): Observable<GameTable[]> {
-      return Observable.of(
-        this.gameTableGenerator.GameTables.filter(x => x.CreatedGamerNickname === gamerNickname)
-      );
+      if (gamerNickname !== null && gamerNickname !== '') {
+        return Observable.of(
+          this.gameTableGenerator.GameTables.filter(x => x.CreatedGamerNickname === gamerNickname)
+        );
+      }       else {
+        return Observable.of(
+          this.gameTableGenerator.GameTables
+        );
+      }
     }
 
     getGameTablesWithoutResultsByGamerNickname(gamerNickname: string): Observable<GameTable[]> {
@@ -31,11 +37,13 @@ export class GameTableService {
         // tslint:disable-next-line:max-line-length
         const tableBoardGamesWithResultIds = this.gameResultGenerator.GameResults.filter(x => x.GameTableId === gameTable.Id).map(x => x.BoardGameId);
 
-        const tableBoardGameIds = gameTable.TableBoardGameList.map(x => x.BoardGameId);
-
-        if (JSON.stringify(tableBoardGamesWithResultIds) === JSON.stringify(tableBoardGameIds)) {
-          gameTable.TableBoardGameList = gameTable.TableBoardGameList.filter(x => !tableBoardGamesWithResultIds.includes(x.BoardGameId));
-          result.push(gameTable);
+        if (gameTable.TableBoardGameList !== null)
+        {
+          const tableBoardGameIds = gameTable.TableBoardGameList.map(x => x.BoardGameId);
+          if (JSON.stringify(tableBoardGamesWithResultIds) === JSON.stringify(tableBoardGameIds)) {
+            gameTable.TableBoardGameList = gameTable.TableBoardGameList.filter(x => !tableBoardGamesWithResultIds.includes(x.BoardGameId));
+            result.push(gameTable);
+          }
         }
       });
 
