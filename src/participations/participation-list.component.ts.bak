@@ -13,7 +13,7 @@ export class ParticipationListComponent implements OnInit {
     participations: Participation[];
     selectedParticipation: Participation;
     selectedGamerNickname: string;
-    isCurrentGamer: boolean = false;
+    isCurrentGamer = false;
 
     constructor(
         private participationService: ParticipationService,

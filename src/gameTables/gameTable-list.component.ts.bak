@@ -14,7 +14,7 @@ export class GameTableListComponent implements OnInit {
     loadedGameTables: GameTable[];
     selectedGameTable: GameTable;
     selectedGamerNickname: string;
-    isCurrentGamer: boolean = false;
+    isCurrentGamer = false;
 
     constructor(
         private gameTableService: GameTableService,

@@ -16,7 +16,7 @@ import { GamerService } from '../gamers/gamer.service';
 export class GameResultDetailComponent implements OnInit {
     gameResult: GameResult;
     otherTableGameResults: GameResult[];
-    canChange: boolean = false;
+    canChange = false;
 
     constructor(
         private gameResultService: GameResultService,

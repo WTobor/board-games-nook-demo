@@ -55,6 +55,6 @@ export class GamerBoardGameAddComponent implements OnInit {
     }
 
     selectBoardGame(value): void {
-        this.selectedBoardGame = Number(value);
+        this.selectedBoardGame = value;
     }
 }
